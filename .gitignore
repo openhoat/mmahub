@@ -1,0 +1,13 @@
+.clinerules/
+.git-mcp-server/
+.idea/
+.npm/
+.nuxt/
+.output/
+dist/
+node_modules/
+
+.env.local
+.envrc
+
+*.log

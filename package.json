@@ -1,0 +1,48 @@
+{
+  "name": "mmahub",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": "22.15.0",
+    "pnpm": "10.10.0"
+  },
+  "volta": {
+    "node": "22.15.0",
+    "pnpm": "10.10.0"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "build:firebase": "nuxt build --preset=firebase",
+    "deploy": "pnpm run build:firebase && firebase deploy",
+    "dev": "nuxt dev",
+    "dev:emulator": "concurrently 'firebase emulators:start' 'NUXT_FIREBASE_USE_EMULATOR=true nuxt dev' --names 'FIREBASE,Nuxt' --prefixColors 'bgBlue.bold,bgGreen.bold'",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "firebase:emulators:start": "firebase emulators:start",
+    "build:clinerules": "cpx '.clinerules-bank/**/*' .clinerules/"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "4.0.0",
+    "cheerio": "1.1.2",
+    "consola": "3.4.2",
+    "firebase": "12.5.0",
+    "firebase-admin": "13.5.0",
+    "firebase-functions": "6.6.0",
+    "node-fetch": "3.3.2",
+    "nuxt": "^4.2.0",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.2",
+    "@jest/globals": "30.2.0",
+    "concurrently": "9.2.1",
+    "cpx": "^1.5.0",
+    "dotenv": "17.2.3",
+    "firebase-tools": "14.23.0",
+    "jest": "30.2.0",
+    "ts-jest": "29.4.5"
+  }
+}
