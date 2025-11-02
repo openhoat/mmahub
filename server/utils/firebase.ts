@@ -1,0 +1,70 @@
+import { initializeApp, getApps } from 'firebase-admin/app'
+import { getFirestore } from 'firebase-admin/firestore'
+import { useLogger } from '../utils/logger'
+
+let firestoreInstance: ReturnType<typeof getFirestore> | null = null
+
+/**
+ * Initialise Firebase Admin SDK avec support de l'émulateur
+ * @returns Instance Firestore
+ */
+export const initializeFirebase = () => {
+  const logger = useLogger()
+  try {
+    // Vérifier si Firebase est déjà initialisé
+    if (getApps().length > 0) {
+      logger.info('Firebase already initialized')
+      return getFirestore()
+    }
+
+    // Vérifier si nous devons utiliser l'émulateur
+    const useEmulator = process.env.NUXT_FIREBASE_USE_EMULATOR === 'true'
+    
+    if (useEmulator) {
+      logger.info('Using Firebase Emulator')
+      
+      // Initialiser Firebase avec une configuration minimale pour l'émulateur
+      const app = initializeApp({
+        projectId: process.env.NUXT_FIREBASE_PROJECT_ID || 'mmahub-dev'
+      })
+      
+      // Initialiser Firestore
+      firestoreInstance = getFirestore(app)
+      
+      // Connecter à l'émulateur
+      const emulatorHost = process.env.NUXT_FIRESTORE_EMULATOR_HOST || 'localhost:8080'
+      firestoreInstance.settings({
+        host: emulatorHost,
+        ssl: false
+      })
+      
+      logger.info(`Connected to Firestore Emulator at ${emulatorHost}`)
+      return firestoreInstance
+    }
+
+    // Si l'émulateur n'est pas activé, initialiser Firebase avec les credentials par défaut
+    // Cela permettra d'utiliser les variables d'environnement du système ou le fichier de credentials par défaut
+    const app = initializeApp()
+    
+    // Initialiser Firestore
+    firestoreInstance = getFirestore(app)
+    logger.info('Firebase initialized successfully')
+
+    return firestoreInstance
+  } catch (error) {
+    logger.error('Error initializing Firebase:', error)
+    return null
+  }
+}
+
+/**
+ * Récupère l'instance Firestore
+ * @returns Instance Firestore ou null si non initialisée
+ */
+export const getFirestoreInstance = () => {
+  if (firestoreInstance) {
+    return firestoreInstance
+  }
+
+  return initializeFirebase()
+}
