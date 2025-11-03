@@ -12,7 +12,10 @@ export default defineNuxtConfig({
       useEmulator: process.env.NUXT_FIREBASE_USE_EMULATOR === 'true',
       projectId: process.env.NUXT_FIREBASE_PROJECT_ID || 'mmahub-dev',
       emulatorHost: process.env.NUXT_FIRESTORE_EMULATOR_HOST || 'localhost:8080'
-    }
+    },
+    // Firebase service account credentials
+    firebaseServiceAccountClientEmail: process.env.NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+    firebaseServiceAccountPrivateKey: process.env.NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY
   },
   nitro: {
     firebase: {

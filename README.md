@@ -1,75 +1,75 @@
-# Nuxt Minimal Starter
+# MMA Hub
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Application pour suivre les classements UFC et autres informations sur les arts martiaux mixtes.
+
+## Configuration requise
+
+- Node.js 22.15.0
+- pnpm 10.10.0
 
 ## Setup
 
-Make sure to install dependencies:
+Assurez-vous d'installer les dépendances :
 
 ```bash
-# npm
-npm install
-
 # pnpm
 pnpm install
+```
 
-# yarn
-yarn install
+## Configuration Firebase
 
-# bun
-bun install
+### Utilisation de Firestore déployé (par défaut)
+
+Pour utiliser Firestore déployé lors du développement :
+
+1. Créez un compte de service Firebase en suivant les instructions dans [doc/firebase-service-account-setup.md](doc/firebase-service-account-setup.md)
+2. Configurez les variables d'environnement dans `.env.local` :
+   ```
+   NUXT_FIREBASE_USE_EMULATOR=false
+   NUXT_FIREBASE_PROJECT_ID=votre-project-id
+   NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL=votre-email@votre-project-id.iam.gserviceaccount.com
+   NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY='-----BEGIN PRIVATE KEY-----\nvotre-clé-privée\n-----END PRIVATE KEY-----\n'
+   ```
+
+### Utilisation de l'émulateur Firestore
+
+Pour utiliser l'émulateur Firestore lors du développement :
+
+```bash
+# Démarrer l'émulateur et le serveur de développement
+pnpm run dev:emulator
 ```
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Démarrez le serveur de développement sur `http://localhost:3000` :
 
 ```bash
-# npm
-npm run dev
-
 # pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
 
-Build the application for production:
+Construisez l'application pour la production :
 
 ```bash
-# npm
-npm run build
-
 # pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm run build:firebase
 ```
 
-Locally preview production build:
+Déployez l'application sur Firebase :
 
 ```bash
-# npm
-npm run preview
+# pnpm
+pnpm run deploy
+```
 
+Prévisualisez la version de production localement :
+
+```bash
 # pnpm
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Consultez la [documentation de déploiement](https://nuxt.com/docs/getting-started/deployment) pour plus d'informations.
